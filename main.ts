@@ -3,9 +3,6 @@
 import { ModelFactory } from "./utils/modelFactory.ts";
 import { ModelNames } from "./enums/modelNames.ts";
 
-// Load all models
-await ModelFactory.loadModels();
-
 let user = ModelFactory.createModel(
   ModelNames.UserModel,
   {

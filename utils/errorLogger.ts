@@ -1,27 +1,14 @@
-import {
-  appendFileSync,
-  ensureFileSync,
-} from "https://deno.land/std/fs/mod.ts";
-import { join } from "https://deno.land/std/path/mod.ts";
+// /utils/errorLogger.ts
 
 export class ErrorLogger {
-  static errorLogPath: string = join(Deno.cwd(), "/logs/errors.txt");
+  static logFile: string = "../protected/errors.log";
 
-  static logError(errorMessage: string, errorList: string[]): void {
-    // Ensure that the log file exists
-    ensureFileSync(this.errorLogPath);
+  static async log(error: string): Promise<void> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(`${new Date().toISOString()}: ${error}\n`);
 
-    // Prepare the error message string
-    let errorLogString: string = `----------\nTimestamp: ${
-      new Date().toISOString()
-    }\nError Message: ${errorMessage}\n`;
-
-    // Append each error in the error list to the error message string
-    errorList.forEach((error) => {
-      errorLogString += `Error: ${error}\n`;
+    await Deno.writeFile(this.logFile, data, { append: true }).catch((err) => {
+      console.error(`Error writing log: ${err}`);
     });
-
-    // Write the error message string to the log file
-    appendFileSync(this.errorLogPath, errorLogString);
   }
 }
