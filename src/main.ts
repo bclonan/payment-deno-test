@@ -20,7 +20,7 @@ let loanResult = ModelFactory.createModel(
   ModelNames.LoanModel,
   {
     name: "Home Loan",
-    maintenanceFee: 1000,
+    maintenanceFee: "1000",
   },
   { shouldCheckType: true, shouldCleanObject: true },
 );
@@ -38,7 +38,7 @@ let userLoanResult = ModelFactory.createModel(
     },
     loan: {
       name: "Home Loan",
-      maintenanceFee: 1000,
+      maintenanceFee: "1000",
     },
   },
   { shouldCheckType: true, shouldCleanObject: true },
@@ -62,7 +62,7 @@ console.log(headersResult);
 let headerszResult = ModelFactory.createModel(
   ModelNames.RequestHeaderModel,
   {},
-  { shouldCheckType: false, shouldCleanObject: true },
+  { shouldCheckType: true, shouldCleanObject: true },
 );
 
 console.log(headerszResult);
