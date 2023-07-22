@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "lib": ["deno.ns", "esnext"],
+      "module": "esnext",
+      "target": "esnext",
+      "strict": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "experimentalDecorators": true
+    }
+  }
+  
