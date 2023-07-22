@@ -3,7 +3,7 @@
 import { ModelFactory } from "./models/modelFactory.ts";
 import { ModelNames } from "./enums/modelNames.ts";
 
-let user = ModelFactory.createModel(
+let userResult = ModelFactory.createModel(
   ModelNames.UserModel,
   {
     id: 1,
@@ -14,9 +14,9 @@ let user = ModelFactory.createModel(
   { shouldCheckType: true, shouldCleanObject: true },
 );
 
-console.log(user);
+console.log(userResult);
 
-let loan = ModelFactory.createModel(
+let loanResult = ModelFactory.createModel(
   ModelNames.LoanModel,
   {
     name: "Home Loan",
@@ -25,9 +25,9 @@ let loan = ModelFactory.createModel(
   { shouldCheckType: true, shouldCleanObject: true },
 );
 
-console.log(loan);
+console.log(loanResult);
 
-let userLoan = ModelFactory.createModel(
+let userLoanResult = ModelFactory.createModel(
   ModelNames.UserLoanModel,
   {
     user: {
@@ -44,9 +44,9 @@ let userLoan = ModelFactory.createModel(
   { shouldCheckType: true, shouldCleanObject: true },
 );
 
-console.log(userLoan);
+console.log(userLoanResult);
 
-let headers = ModelFactory.createModel(
+let headersResult = ModelFactory.createModel(
   ModelNames.RequestHeaderModel,
   {
     X_InstitutionNumber: 123,
@@ -57,4 +57,12 @@ let headers = ModelFactory.createModel(
   { shouldCheckType: true, shouldCleanObject: true },
 );
 
-console.log(headers);
+console.log(headersResult);
+
+let headerszResult = ModelFactory.createModel(
+  ModelNames.RequestHeaderModel,
+  {},
+  { shouldCheckType: false, shouldCleanObject: true },
+);
+
+console.log(headerszResult);

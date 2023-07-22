@@ -6,7 +6,7 @@ import { RequestHeaderModel } from "./requestHeaderModel.ts";
 
 export class ModelFactory {
   static modelDictionary: {
-    [key: string]: new (...args: any[]) => DefaultModel;
+    [key: string]: typeof DefaultModel; // Use 'typeof DefaultModel' to denote class type
   } = {
     UserModel,
     LoanModel,
@@ -17,8 +17,11 @@ export class ModelFactory {
   static createModel(modelName: string, ...args: any[]) {
     const ModelClass = this.modelDictionary[modelName];
     if (!ModelClass) {
-      throw new Error(`Model ${modelName} not found.`);
+      return {
+        success: false,
+        message: `Model ${modelName} not found.`,
+      };
     }
-    return new ModelClass(...args);
+    return ModelClass.createInstance(...args);
   }
 }

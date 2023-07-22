@@ -1,4 +1,4 @@
-import { DefaultModel, FieldTypes } from "./defaultModel.ts";
+import { DefaultModel, FieldTypes } from "./defaultModel";
 
 class AVS extends DefaultModel implements FieldTypes {
   street1!: string;

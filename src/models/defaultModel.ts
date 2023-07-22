@@ -6,23 +6,44 @@ interface ModelOptions {
   shouldCleanObject?: boolean;
 }
 
-export class DefaultModel {
-  [key: string]: any;
+interface FieldDefinitions {
+  [key: string]: string | [string, any] | Function;
+}
 
-  constructor(
-    rawData: any,
-    fields: any,
-    defaultValues: any = {},
+interface DefaultValues {
+  [key: string]: any;
+}
+
+interface RawData {
+  [key: string]: any;
+}
+
+export class DefaultModel {
+  protected constructor(
+    private rawData: RawData,
+    private fields: FieldDefinitions,
+    private defaultValues: DefaultValues = {},
+    private options: ModelOptions = {},
+  ) {
+    // constructor logic moved to static method
+  }
+
+  static createInstance(
+    rawData: RawData,
+    fields: FieldDefinitions,
+    defaultValues: DefaultValues = {},
     options: ModelOptions = {},
   ) {
-    const { shouldCheckType = false, shouldCleanObject = false } = options;
+    const instance = new DefaultModel(rawData, fields, defaultValues, options);
+    const { shouldCheckType = false, shouldCleanObject = false } =
+      instance.options;
 
     if (shouldCleanObject) {
-      Utils.cleanObject(rawData);
+      Utils.cleanObject(instance.rawData);
     }
 
-    for (const field in fields) {
-      let fieldType = fields[field];
+    for (const field in instance.fields) {
+      let fieldType = instance.fields[field];
       let extraParam = null;
 
       if (Array.isArray(fieldType)) {
@@ -30,14 +51,37 @@ export class DefaultModel {
       }
 
       if (typeof fieldType === "function") {
-        this[field] = new fieldType(rawData[field], options);
+        instance[field] = new fieldType(
+          instance.rawData[field],
+          instance.options,
+        );
       } else {
-        this[field] = rawData[field] !== undefined
-          ? TypeConverter.convert(rawData[field], fieldType, extraParam)
-          : defaultValues[field];
+        if (
+          instance.rawData[field] === undefined &&
+          instance.defaultValues[field] === undefined
+        ) {
+          return {
+            success: false,
+            message: `Missing required field: ${field}`,
+          };
+        }
 
-        Utils.checkType(this[field], fieldType, field, shouldCheckType);
+        instance[field] = instance.rawData[field] !== undefined
+          ? TypeConverter.convert(
+            instance.rawData[field],
+            fieldType,
+            extraParam,
+          )
+          : instance.defaultValues[field];
+
+        if (shouldCheckType) {
+          Utils.checkType(instance[field], fieldType, field, shouldCheckType);
+        }
       }
     }
+    return {
+      success: true,
+      data: instance,
+    };
   }
 }
