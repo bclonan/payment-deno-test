@@ -23,9 +23,8 @@ export class TypeConverter {
     },
     bigint: (value) => BigInt(value),
     date: (value) => new Date(value),
-    currencyToUSD: (value) => {
-      const conversionRateFromEURToUSD = 1.1;
-      return value * conversionRateFromEURToUSD;
+    currency: (value, currency = "USD") => {
+      return Utils.toCurrency(value, currency);
     },
     concatStrings: (value, delimiter = ",") => {
       if (!Array.isArray(value)) {
