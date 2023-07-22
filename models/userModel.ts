@@ -1,14 +1,13 @@
 import { DefaultModel } from "./defaultModel.ts";
 
 export class UserModel extends DefaultModel {
-  static namespaces = ["payment", "shared"];
-
-  constructor(
-    rawData: any,
-    fields: any,
-    defaultValues: any = {},
-    options: ModelOptions = {},
-  ) {
-    super(rawData, fields, defaultValues, options);
+  constructor(rawData: any, options = {}) {
+    const fields = {
+      id: "number",
+      first_name: "string",
+      last_name: "string",
+      email: "string",
+    };
+    super(rawData, fields, {}, options);
   }
 }
