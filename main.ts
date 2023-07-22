@@ -1,7 +1,10 @@
 // /src/main.ts
 
-import { ModelFactory } from "./models/modelFactory.ts";
+import { ModelFactory } from "./utils/modelFactory.ts";
 import { ModelNames } from "./enums/modelNames.ts";
+
+// Load all models
+await ModelFactory.loadModels();
 
 let user = ModelFactory.createModel(
   ModelNames.UserModel,
@@ -20,7 +23,7 @@ let loan = ModelFactory.createModel(
   ModelNames.LoanModel,
   {
     name: "Home Loan",
-    maintenanceFee: 1000,
+    maintenanceFee: "1000",
   },
   { shouldCheckType: true, shouldCleanObject: true },
 );
@@ -35,10 +38,11 @@ let userLoan = ModelFactory.createModel(
       first_name: "John",
       last_name: "Doe",
       email: "john.doe@example.com",
+      maintenanceFee: 1000,
     },
     loan: {
       name: "Home Loan",
-      maintenanceFee: 1000,
+      maintenanceFee: "1000",
     },
   },
   { shouldCheckType: true, shouldCleanObject: true },
@@ -51,8 +55,7 @@ let headers = ModelFactory.createModel(
   {
     X_InstitutionNumber: 123,
     X_Token: "some-token",
-    routingNumber: 456,
-    clientType: "web",
+    routingNumber: "456",
   },
   { shouldCheckType: true, shouldCleanObject: true },
 );
