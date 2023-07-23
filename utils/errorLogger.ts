@@ -1,7 +1,10 @@
 // /utils/errorLogger.ts
-
 export class ErrorLogger {
-  static logFile: string = "./errors.log";
+  static logFile: string;
+
+  static async init(logFilePath: string): Promise<void> {
+    this.logFile = logFilePath;
+  }
 
   static async log(error: string): Promise<void> {
     const encoder = new TextEncoder();

@@ -73,4 +73,11 @@ export class Utils {
   ) =>
     Intl.NumberFormat(LanguageFormat, { style: "currency", currency: curr })
       .format(n);
+
+  static errorCheck(object: any): void {
+    if (object.errors && object.errors.length > 0) {
+      console.log(`Errors found in ${object.constructor.name}:`, object.errors);
+      delete object.errors;
+    }
+  }
 }
