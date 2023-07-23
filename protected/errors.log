@@ -4,3 +4,5 @@
 2023-07-23T19:44:44.875Z: Error for field clientType: Invalid type for key clientType, expected string, got undefined. Original value was undefined
 2023-07-23T19:49:23.683Z: Error for field clientType: Invalid type for key clientType, expected string, got undefined. Original value was undefined
 2023-07-23T19:49:27.119Z: TypeError: error sending request for url (http://localhost:8000/paymentapi/api/v1/Payment/SubmitCardPayment): error trying to connect: tcp connect error: No connection could be made because the target machine actively refused it. (os error 10061)
+2023-07-23T19:50:20.834Z: Error for field clientType: Invalid type for key clientType, expected string, got undefined. Original value was undefined
+2023-07-23T19:50:24.178Z: TypeError: error sending request for url (http://localhost:8000/paymentapi/api/v1/Payment/SubmitCardPayment): error trying to connect: tcp connect error: No connection could be made because the target machine actively refused it. (os error 10061)
